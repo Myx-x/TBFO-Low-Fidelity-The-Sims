@@ -3,11 +3,11 @@
 
 using namespace std;
 
-struct stats {
+typedef struct {
     int h;
     int e;
     int f;
-};
+} stats;
 
 int main(){
     bool stop = false;
@@ -25,8 +25,8 @@ int main(){
             stop = true;
         }
         scanf("%s", &action);
-        
-    }
+
+        if (action = "")
 
     return 0;
 }
