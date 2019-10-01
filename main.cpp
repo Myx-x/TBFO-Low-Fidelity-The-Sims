@@ -33,13 +33,43 @@ int main(){
     attribute.hygiene = 0; attribute.energy = 10; attribute.fun =0;
     bool stop = false;
     string action;
-        
-    printf("Sims start.\n");
+    
+    printf("\n");
+    printf("                               `--`  -+:/+.       \n");
+    printf("           ``-:::- `-:::`   `-/:..//o/`:/:.       \n");
+    printf("        `:::-`   +-o`  `o.-::.../:..:-`o.      `. \n");
+    printf("      `/:`    `.-:oo-``.s/--/++`.`-o/-.+:`  ````  \n");
+    printf("      o.    -::-.``o:..-y/o-`o/---:o:+o:o:::---+- \n");
+    printf("      o`    +:     o`   o`o  `+` `+- `o.s-` `.-:+`\n");
+    printf("      -/`   `:/.   o`   o:/   .+`+-   ++/   +:``  \n");
+    printf("...... `::`   `-/- o`   oo.    .o-    -o/-  ./:.  \n");
+    printf("+-`-.-::-/o/`   `:/o`   so      `      o..:-  `/: \n");
+    printf("+-`-.-::-/o/`   `:/o`   so      `      o..:-  `/: \n");
+    printf(" --/-////++/-     +s`   y`   -`   `:   `s:-.  `-/`\n");
+    printf("     `++.``    `-/-o:---+    o+   /s    ++---::.` \n");
+    printf("       -/`.--:::.`  ```+-   .+:/`/:/-   .o```     \n");
+    printf("        `--.``         :::::/- .--``:::::/`       \n");
+    printf("\n");
+
     printf("Initial attribute :\n");
     printStats(attribute);
-    printf("---------------------------------\n");
+    printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 
     while (!stop){
+        printf("|******************************************************************|\n");
+        printf("|*---------------------Available Activity-------------------------*|\n");
+        printf("|*   Tidur Siang               ||    Buang Air Kecil              *|\n");
+        printf("|*   Tidur Malam               ||    Buang Air Besar              *|\n");
+        printf("|*   Makan Hamburger           ||    Bersosialisasi ke Kafe       *|\n");
+        printf("|*   Makan Pizza               ||    Bermain Media Sosial         *|\n");
+        printf("|*   Makan Steaks and Beans    ||    Bermain komputer             *|\n");
+        printf("|*   Minum Air                 ||    Mandi                        *|\n");
+        printf("|*   Minum Kopi                ||    Cuci Tangan                  *|\n");
+        printf("|*   Minum Jus                 ||    Mendengarkan Musik di Radio  *|\n");
+        printf("|*   Membaca Koran             ||    Membaca Novel                *|\n");
+        printf("|******************************************************************|\n");
+        printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+
         printf("Activity : ");
         getline(cin, action);
         copyStats(attribute, &temp);
@@ -101,7 +131,7 @@ int main(){
         }
 
         printStats(attribute);
-        printf("---------------------------------\n");
+        printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
         if (stopProgram(attribute)){
             stop = true;
         }
