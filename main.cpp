@@ -8,15 +8,6 @@ typedef struct {
     int fun;
 } stats;
 
-map <string, stats> activity;
-map <stats, string> states;
-
-void makeStats(stats *attribute, int hygieneModifier, int energyModifier, int funModifier){
-    (*attribute).hygiene += hygieneModifier;
-    (*attribute).energy += energyModifier;
-    (*attribute).fun += funModifier;
-}
-
 bool isStatsValid(stats attribute){
     return attribute.hygiene >= 0 && attribute.hygiene <= 15 && attribute.energy >= 0 && attribute.energy <= 15 && attribute.fun >= 0 && attribute.fun <= 15;
 }
@@ -37,78 +28,90 @@ void copyStats(stats attribute, stats *temp){
     (*temp).fun = attribute.fun;
 }
 
-void initStates(){
-    int counter = 0;
-    for (int i = 0; i <= 15; i += 5){
-        for (int j = 0; j <= 15; j += 5){
-            for (int k = 0; k <= 15; k += 5){
-                states[{i,j,k}] = "q"+to_string(counter);
-            }
-        }
-    }
-}
-
-void initActivity(){
-    activity["Tidur Siang"] = {0,10,0};
-    activity["Tidur Malam"] = {0,15,0};
-    activity["Makan Hamburger"] = {0,5,0};
-    activity["Makan Pizza"] = {0,10,0};
-    activity["Makan Steaks and Beans"] = {0,15,0};
-    activity["Minum Air"] = {-5,0,0};
-    activity["Minum Kopi"] = {-10,5,0};
-    activity["Minum Jus"] = {-5,10,0};
-    activity["Buang Air Kecil"] = {5,0,0};
-    activity["Buang Air Besar"] = {10,-5,0};
-    activity["Bersosialisasi ke Kafe"] = {-5,-10,15};
-    activity["Bermain Media Sosial"] = {0,-10,10};
-    activity["Bermain Komputer"] = {0,-10,15};
-    activity["Mandi"] = {15,-5,0};
-    activity["Cuci Tangan"] = {5,0,0};
-    activity["Mendengarkan Musik di Radio"] = {0,-5,10};
-    activity["Membaca Koran"] = {0,-5,5};
-    activity["Membaca Novel"] = {0,-5,10};
-}
-
 int main(){
-    initStates();
-    initActivity();
-
     stats attribute, temp;
     attribute.hygiene = 0; attribute.energy = 10; attribute.fun =0;
     bool stop = false;
     string action;
         
-    printf("Sims Start.\n");
-    printf("Initial Attribute :\n");
+    printf("Sims start.\n");
+    printf("Initial attribute :\n");
     printStats(attribute);
+    printf("---------------------------------\n");
 
     while (!stop){
-        if (stopProgram(attribute)){
-            stop = true;
-        }
-
         printf("Activity : ");
-        cin >> action;
-        temp.hygiene += activity[action].hygiene;
-        temp.energy += activity[action].energy;
-        temp.fun += activity[action].fun;
+        getline(cin, action);
+        copyStats(attribute, &temp);
+        if (action == "Tidur Siang"){
+            temp.energy += 10;
+        } else if (action == "Tidur Malam"){
+            temp.energy += 15;
+        } else if (action == "Makan Hamburger"){
+            temp.energy += 5;
+        } else if (action == "Makan Pizza"){
+            temp.energy += 10;
+        } else if (action == "Makan Steak and Beans"){
+            temp.energy += 15;
+        } else if (action == "Minum Air"){
+            temp.hygiene += -5;
+        } else if (action == "Minum Kopi"){
+            temp.hygiene += -10;
+            temp.energy += 5;
+        } else if (action == "Minum Jus"){
+            temp.hygiene += -5;
+            temp.energy += 10;
+        } else if (action == "Buang Air Kecil"){
+            temp.hygiene += 5;
+        } else if (action == "Buang Air Besar"){
+            temp.hygiene += 10;
+            temp.energy += -5;
+        } else if (action == "Bersosialisasi ke Kafe"){
+            temp.hygiene += -5;
+            temp.energy += -10;
+            temp.fun += 15;
+        } else if (action == "Bermain Media Sosial"){
+            temp.energy += -10;
+            temp.fun += 10;
+        } else if (action == "Bermain komputer"){
+            temp.energy += -10;
+            temp.fun += 15;
+        } else if (action == "Mandi"){
+            temp.hygiene += 15;
+            temp.energy += -5;
+        } else if (action == "Cuci Tangan"){
+            temp.hygiene += 5;
+        } else if (action == "Mendengarkan Musik di Radio"){
+            temp.energy += -5;
+            temp.fun += 10;
+        } else if (action == "Membaca Koran"){
+            temp.energy += -5;
+            temp.fun += 5;
+        } else if (action == "Membaca Novel"){
+            temp.energy += -5;
+            temp.fun += 10;
+        } else {
+            printf("Aksi tidak terdaftar\n");
+        }
 
         if (isStatsValid(temp)){
             copyStats(temp, &attribute);
-            cout << "State : " << states[{attribute.hygiene, attribute.energy, attribute.fun}] << endl;
         } else {
-            printf("Aksi Tidak Valid\n");
-            temp.hygiene -= activity[action].hygiene;
-            temp.energy -= activity[action].energy;
-            temp.fun -= activity[action].fun;
+            printf("Aksi tidak valid\n");
         }
 
-        cout << states[{attribute.hygiene, attribute.energy, attribute.fun}] << endl;
         printStats(attribute);
+        printf("---------------------------------\n");
+        if (stopProgram(attribute)){
+            stop = true;
+        }
     }
-    printf("Program Has Finished.\n");
-    printf("Final Attribute : \n");
-    printStats(attribute);
+    printf("Program has finished.\n");
+    if (attribute.hygiene == 15 && attribute.energy == 15 && attribute.fun == 15){
+        printf("You win in life.\n");
+    } else {
+        printf("Try again next life.\n");
+    }
 
     return 0;
 }
