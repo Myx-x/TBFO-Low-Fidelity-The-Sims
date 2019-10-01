@@ -8,10 +8,12 @@ typedef struct {
     int fun;
 } stats;
 
+// Melakukan pengecekan terhadap kondisi stats, apakah berada di dalam batas [0..15] atau tidak
 bool isStatsValid(stats attribute){
     return attribute.hygiene >= 0 && attribute.hygiene <= 15 && attribute.energy >= 0 && attribute.energy <= 15 && attribute.fun >= 0 && attribute.fun <= 15;
 }
 
+// Mengembalikan true bila kondisi atribut sesuai dengan kondisi berhenti (0,0,0 atau 15,15,15)
 bool stopProgram(stats attribute){
     return (attribute.hygiene + attribute.energy + attribute.fun == 0) || (attribute.hygiene + attribute.energy + attribute.fun == 45);
 }
@@ -73,6 +75,7 @@ int main(){
         printf("Activity : ");
         getline(cin, action);
         copyStats(attribute, &temp);
+
         if (action == "Tidur Siang"){
             temp.energy += 10;
         } else if (action == "Tidur Malam"){
@@ -81,7 +84,7 @@ int main(){
             temp.energy += 5;
         } else if (action == "Makan Pizza"){
             temp.energy += 10;
-        } else if (action == "Makan Steak and Beans"){
+        } else if (action == "Makan Steaks and Beans"){
             temp.energy += 15;
         } else if (action == "Minum Air"){
             temp.hygiene += -5;
